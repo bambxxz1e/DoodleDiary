@@ -2,6 +2,10 @@ package doodleDiarySystem;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -56,12 +60,20 @@ public class MixFrame extends JFrame {
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         
-        menu.add(sunny);
+        menu.add(sunny); // 날씨 메뉴 집어넣기
 		menu.add(cloudysun);
 		menu.add(cloudy);
 		menu.add(rainy);
 		menu.add(windy);
 		menu.add(snowy);
+		
+		Weather weatherListener = new Weather(menu); // 메뉴 참조 전달
+        sunny.addActionListener(weatherListener);
+        cloudysun.addActionListener(weatherListener);
+        cloudy.addActionListener(weatherListener);
+        rainy.addActionListener(weatherListener);
+        windy.addActionListener(weatherListener);
+        snowy.addActionListener(weatherListener);
 		
 		menuBar.add(menu);
 
@@ -101,5 +113,20 @@ public class MixFrame extends JFrame {
         });
         
         setVisible(true);
+	}
+	
+	private class Weather implements ActionListener {
+		private JMenu menu; // 메뉴 참조 변수
+
+	    // 생성자 : 변경할 JMenu를 받아옴
+	    public Weather(JMenu menu) {
+	        this.menu = menu;
+	    }
+
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+	        JMenuItem clickedItem = (JMenuItem) e.getSource(); // 클릭된 아이템
+	        menu.setText(clickedItem.getText()); // 메뉴 이름을 클릭된 아이템의 텍스트로 변경
+	    }
 	}
 }
