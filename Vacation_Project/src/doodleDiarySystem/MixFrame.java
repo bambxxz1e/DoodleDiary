@@ -16,6 +16,17 @@ public class MixFrame extends JFrame {
     JButton exitButton = new JButton("EXIT");
     JButton saveButton = new JButton("SAVE");
     
+    JMenuBar menuBar = new JMenuBar();
+	JMenu menu = new JMenu("날씨");
+
+	JMenuItem sunny = new JMenuItem("☀️");
+	JMenuItem cloudysun = new JMenuItem("⛅");
+	JMenuItem cloudy = new JMenuItem("☁️");
+	JMenuItem rainy = new JMenuItem("🌧️");
+	JMenuItem windy = new JMenuItem("💨");
+	JMenuItem snowy = new JMenuItem("❄️");
+	
+    
 	public MixFrame(String choiceDate) {
 		setTitle("DoodleDiary");
 		setSize(650, 850);
@@ -44,8 +55,18 @@ public class MixFrame extends JFrame {
         topPanel.setLayout(new BorderLayout());
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        
+        menu.add(sunny);
+		menu.add(cloudysun);
+		menu.add(cloudy);
+		menu.add(rainy);
+		menu.add(windy);
+		menu.add(snowy);
+		
+		menuBar.add(menu);
 
         leftPanel.add(date);
+        leftPanel.add(menuBar);
         rightPanel.add(saveButton);
         rightPanel.add(exitButton);
         
