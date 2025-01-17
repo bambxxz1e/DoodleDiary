@@ -31,17 +31,8 @@ public class MixFrame extends JFrame {
 	JMenuItem snowy = new JMenuItem("❄️");
 
 	private String selectedWeather = "날씨"; // 현재 선택된 날씨
-	private DatabaseManager db;
 
 	public MixFrame(String currentYear, String choiceMonth, String choiceDate) {
-		// DB 연결
-//        try {
-//            db = new DatabaseManager("데이터베이스 경로", "root", "password");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            JOptionPane.showMessageDialog(this, "DB 연결 실패!", "Error", JOptionPane.ERROR_MESSAGE);
-//            System.exit(1);
-//        }
 
 		setTitle("DoodleDiary");
 		setSize(650, 850);
@@ -159,31 +150,4 @@ public class MixFrame extends JFrame {
 			selectedWeather = clickedItem.getText();
 		}
 	}
-
-//	private void saveData(String choiceDate) {
-//        try {
-//            // 1. 입력창 텍스트 가져오기
-//            textFrame tf = (textFrame) southPanel.getComponent(0);
-//            String textContent = tf.getText();
-//
-//            // 2. 그림판 이미지 저장 (northPanel에 그림판 추가했다고 가정)
-//            drawingPanel drawingPanel = (drawingPanel) northPanel.getComponent(0);
-//            String imagePath = saveImage(drawingPanel);
-//
-//            // 3. DB에 데이터 저장
-//            db.insertDiary(choiceDate, selectedWeather, textContent, imagePath);
-//
-//            JOptionPane.showMessageDialog(this, "데이터 저장 완료!", "Success", JOptionPane.INFORMATION_MESSAGE);
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            JOptionPane.showMessageDialog(this, "데이터 저장 실패!", "Error", JOptionPane.ERROR_MESSAGE);
-//        }
-//    }
-//	
-//	private String saveImage(DrawingPanel drawingPanel) throws Exception {
-//        String fileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".png";
-//        File imageFile = new File("saved_images/" + fileName);
-//        drawingPanel.saveImage(imageFile); // DrawingPanel 클래스에서 saveImage 메소드 구현
-//        return imageFile.getAbsolutePath();
-//    }
 }

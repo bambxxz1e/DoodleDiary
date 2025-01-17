@@ -3,8 +3,6 @@ package doodleDiarySystem;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import java.awt.event.*;
-import javax.swing.border.EmptyBorder;
 import java.io.*;
 
 // 일기 쓰는 패널
