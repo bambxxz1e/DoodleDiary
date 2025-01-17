@@ -3,64 +3,73 @@ package doodleDiarySystem;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.*;
 
 public class MixFrame extends JFrame {
-	JPanel basePane = new JPanel(new BorderLayout()); // 가장 큰 메인 화면
-    JPanel topPane = new JPanel(); // 날짜, 날씨 선택, exit 버튼 위치
-    JPanel centerPane = new JPanel(new BorderLayout()); // 그림판, 일기 쓰는 화면 위치
-    JPanel bottomPane = new JPanel(); // 저장 버튼
-    JPanel northPane = new JPanel(); // 그림판
-    JPanel southPane = new JPanel(); // 일기장
+    JPanel topPanel = new JPanel(); // 날짜, 날씨 선택, exit 버튼 위치
+    JPanel centerPanel = new JPanel(new BorderLayout()); // 그림판, 일기 쓰는 화면 위치
+    JPanel bottomPanel = new JPanel(); // 저장 버튼
+    JPanel northPanel = new JPanel(); // 그림판
+    JPanel southPanel = new JPanel(); // 일기장
     
     JLabel date; // 오늘 날짜
-    
     JButton exitButton = new JButton("EXIT");
+    JButton saveButton = new JButton("SAVE");
     
 	public MixFrame(String choiceDate) {
 		setTitle("DoodleDiary");
 		setSize(650, 850);
+		setLayout(new BorderLayout()); // 전체 레이아웃
 		setResizable(false); // 사이즈 고정
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setVisible(true);
-        
-        requestFocusInWindow();
         
         date = new JLabel(choiceDate + "일");
         
         // 패널 크기
-        basePane.setPreferredSize(new Dimension(650, 850));
-        centerPane.setPreferredSize(new Dimension(650, 25));
-        topPane.setPreferredSize(new Dimension(650, 800));
-        bottomPane.setPreferredSize(new Dimension(650, 25));
+        topPanel.setPreferredSize(new Dimension(650, 45));
+        centerPanel.setPreferredSize(new Dimension(650, 780));
+        bottomPanel.setPreferredSize(new Dimension(650, 25));
         
         // 베이스 패널에 집어 넣기
-        basePane.add(topPane, BorderLayout.NORTH);
-        basePane.add(centerPane, BorderLayout.CENTER);
-        basePane.add(bottomPane, BorderLayout.SOUTH);
-        
-        setContentPane(basePane); 
+        add(topPanel, BorderLayout.NORTH);
+        add(centerPanel, BorderLayout.CENTER);
+        add(bottomPanel, BorderLayout.SOUTH);
         
         // 센터 패널에 집어 넣기
-        centerPane.add(northPane, BorderLayout.NORTH);
-        centerPane.add(southPane, BorderLayout.SOUTH);
+        centerPanel.add(northPanel, BorderLayout.NORTH);
+        centerPanel.add(southPanel, BorderLayout.SOUTH);
         
-        // 날짜, 날씨, exit 버튼 (topPane) 그 정렬을 못햇다..
-        topPane.setLayout(new FlowLayout());
-        topPane.add(date);
-        topPane.add(exitButton);
+        // 날짜, 날씨, save, exit 버튼 정렬 위해 borderlayout 사용
+        topPanel.setLayout(new BorderLayout());
+        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+
+        leftPanel.add(date);
+        rightPanel.add(saveButton);
+        rightPanel.add(exitButton);
+        
+        topPanel.add(leftPanel, BorderLayout.WEST);
+        topPanel.add(rightPanel, BorderLayout.EAST);
+        
+        saveButton.setBackground(Color.DARK_GRAY);
+        saveButton.setForeground(Color.WHITE);
         exitButton.setBackground(Color.RED);
         exitButton.setForeground(Color.WHITE);
         date.setFont(new Font("맑은 고딕", Font.BOLD, 20));
-        add(topPane);
         
-        northPane.setPreferredSize(new Dimension(650, 400));
-        southPane.setPreferredSize(new Dimension(650, 400));
+        northPanel.setPreferredSize(new Dimension(650, 550));
+        southPanel.setPreferredSize(new Dimension(650, 230));
         
-        // 지금 여기 실행 안됨ㅠㅠ
+        // 텍스트 입력창 설정
+        southPanel.setLayout(new BorderLayout());
         textFrame tf = new textFrame();
-        southPane.add(tf);
-        add(southPane);
+        southPanel.setLayout(new BorderLayout());
+        southPanel.add(tf, BorderLayout.CENTER);
+        
+        // 갱신
+        southPanel.revalidate();
+        southPanel.repaint();
         
         // exit 버튼 누르면 mixframe 창만 나가짐
         exitButton.addActionListener(new ActionListener() {
@@ -69,5 +78,7 @@ public class MixFrame extends JFrame {
                 dispose();
             }
         });
+        
+        setVisible(true);
 	}
 }
